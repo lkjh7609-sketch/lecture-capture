@@ -138,7 +138,7 @@ def main():
     for f in src.iterdir():
         if f.is_file() and f.suffix in (".py", ".bat", ".iss", ".md", ".txt"):
             shutil.copy2(f, OUT / "tools/수업캡처" / f.name)
-    shutil.copy2(ROOT / ".github/workflows/lecture-capture.yml", OUT / ".github/workflows/lecture-capture.yml")
+    (OUT / ".github/workflows/lecture-capture.yml").write_text(WORKFLOW, encoding="utf-8")
     (OUT / ".gitignore").write_text((ROOT / ".gitignore").read_text(encoding="utf-8"), encoding="utf-8")
     (OUT / "README.md").write_text(PUBLIC_README, encoding="utf-8")
     # 공개본에 이름이 남지 않았는지 확인
@@ -146,6 +146,38 @@ def main():
         if p.is_file() and p.suffix in (".html", ".md", ".py"):
             assert "이" + "재헌" not in p.read_text(encoding="utf-8", errors="ignore"), p
     print("ok", OUT)
+
+WORKFLOW = '''# 수업캡처 Windows 설치 파일 자동 빌드
+# GitHub → Actions → "수업캡처 설치 파일" → 최신 실행 → Artifacts의 LectureCapture-Setup 다운로드
+name: 수업캡처 설치 파일
+on:
+  workflow_dispatch:
+  push:
+    paths: ["tools/수업캡처/**", ".github/workflows/lecture-capture.yml"]
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: cmd
+        working-directory: tools/수업캡처
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: exe 빌드
+        run: call build_exe.bat nopause
+      - name: Inno Setup 준비
+        run: if not exist "%ProgramFiles(x86)%\\Inno Setup 6\\ISCC.exe" choco install innosetup -y --no-progress
+      - name: 설치 파일 만들기
+        run: '"%ProgramFiles(x86)%\\Inno Setup 6\\ISCC.exe" installer.iss'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: LectureCapture-Setup
+          path: tools/수업캡처/Output/*.exe
+          retention-days: 30
+'''
 
 PUBLIC_README = '''# 수업캡처 (Lecture Capture)
 
