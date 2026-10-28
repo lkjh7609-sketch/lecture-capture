@@ -5,7 +5,7 @@
 ; 원하면 Claude Code(+ Git for Windows)도 설치한다
 
 #define AppName "수업캡처"
-#define AppVersion "1.0.0"
+#define AppVersion "1.1.0"
 #define AppExe "LectureCapture.exe"
 
 [Setup]

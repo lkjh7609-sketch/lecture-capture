@@ -9,9 +9,9 @@ pip install -r requirements.txt || goto :err
 python make_icon.py || goto :err
 rem 1) 앱
 pyinstaller --noconfirm --windowed --name LectureCapture --icon icon.ico ^
-  --collect-all faster_whisper --collect-all ctranslate2 --collect-all winsdk ^
+  --collect-all customtkinter --collect-all faster_whisper --collect-all ctranslate2 --collect-all winsdk ^
   --hidden-import pystray._win32 ^
-  app.py || goto :err
+  main.py || goto :err
 rem 2) Python 대용 실행기: PDF 빌드(build.py)·토글(add_theme_toggle.py)을 Python 없이 돌림
 pyinstaller --noconfirm --onefile --console --name lctool --collect-all pymupdf lctool.py || goto :err
 copy /y dist\lctool.exe dist\LectureCapture\lctool.exe >nul || goto :err

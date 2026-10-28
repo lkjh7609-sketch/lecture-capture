@@ -171,6 +171,22 @@ jobs:
           python-version: "3.12"
       - name: exe 빌드
         run: call build_exe.bat nopause
+      - name: 실행 점검 + 화면 스크린샷
+        shell: pwsh
+        timeout-minutes: 4
+        run: |
+          $shots = Join-Path $env:RUNNER_TEMP "shots"
+          $env:LC_ROOT = Join-Path $env:RUNNER_TEMP "lcroot"
+          New-Item -ItemType Directory -Force $env:LC_ROOT | Out-Null
+          $p = Start-Process dist\LectureCapture\LectureCapture.exe -ArgumentList "--selftest", $shots -PassThru -Wait
+          if (Test-Path "$shots\error.txt") { Get-Content "$shots\error.txt"; exit 1 }
+          if ($p.ExitCode -ne 0) { "exit code $($p.ExitCode)"; exit 1 }
+          Get-ChildItem $shots
+      - uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: ${{ runner.temp }}/shots
+          retention-days: 7
       - name: Inno Setup 준비
         run: if not exist "%ProgramFiles(x86)%\\Inno Setup 6\\ISCC.exe" choco install innosetup -y --no-progress
       - name: 설치 파일 만들기
