@@ -1,0 +1,12 @@
+_template/.build/
+.DS_Store
+.claude/settings.local.json
+캡처/
+tools/수업캡처/config.json
+tools/수업캡처/.venv/
+tools/수업캡처/build/
+tools/수업캡처/dist/
+tools/수업캡처/*.spec
+__pycache__/
+tools/수업캡처/Output/
+tools/수업캡처/icon.ico

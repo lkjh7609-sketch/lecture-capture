@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>강의 정리 견본</title>
+<style>
+@font-face{font-family:"Noto Serif KR";src:url("../fonts/NotoSerifKR-Regular.ttf") format("truetype");font-weight:400}
+@font-face{font-family:"Noto Serif KR";src:url("../fonts/NotoSerifKR-Bold.ttf") format("truetype");font-weight:700}
+@font-face{font-family:"Noto Sans KR";src:url("../fonts/NotoSansKR-Regular.ttf") format("truetype");font-weight:400}
+@font-face{font-family:"Noto Sans KR";src:url("../fonts/NotoSansKR-SemiBold.ttf") format("truetype");font-weight:600}
+@font-face{font-family:"Noto Sans KR";src:url("../fonts/NotoSansKR-Bold.ttf") format("truetype");font-weight:700}
+@font-face{font-family:"JetBrains Mono";src:url("../fonts/JetBrainsMono-Regular.ttf") format("truetype");font-weight:400}
+@font-face{font-family:"JetBrains Mono";src:url("../fonts/JetBrainsMono-Bold.ttf") format("truetype");font-weight:700}
+
+@page{
+  size:A4; margin:24mm 21mm 22mm 21mm;
+  @top-left{content:"SAPUI5 실습 정리 · Day 1"; font:8pt "Noto Sans KR",sans-serif; color:#777; vertical-align:bottom; padding-bottom:3mm}
+  @top-right{content:"2026-10-20"; font:8pt "Noto Sans KR",sans-serif; color:#777; vertical-align:bottom; padding-bottom:3mm}
+  @bottom-center{content:"— " counter(page) " —"; font:8.5pt "Noto Serif KR",serif; color:#444}
+}
+@page:first{ @top-left{content:none} @top-right{content:none} @bottom-center{content:none} }
+*{box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+html,body{margin:0; background:#fff; color:#151515}
+body{font:10.3pt/1.78 "Noto Serif KR",serif; word-break:keep-all; overflow-wrap:anywhere; text-align:left}
+.g,h1,h2,h3,h4,caption,figcaption,.cap,th,.toc,.lbl,.meta,.abs-h,.kw,.note b{font-family:"Noto Sans KR",sans-serif}
+code,pre,.mono{font-family:"JetBrains Mono","Noto Sans KR",monospace; font-variant-ligatures:none; font-feature-settings:"liga" 0,"calt" 0}  /* === 가 ≡ 로 보이지 않게 */
+code{font-size:8.6pt; background:#f2f2f2; padding:0 .25em; border-radius:2px}
+p{margin:0 0 .55em; text-indent:0}
+b,strong{font-family:"Noto Sans KR",sans-serif; font-weight:700; font-size:.96em}
+sup.add{font-size:7pt; color:#555; font-family:"Noto Sans KR",sans-serif}
+
+/* title page */
+.title-page{height:247mm; display:flex; flex-direction:column; justify-content:center; text-align:center; break-after:page}
+.title-page .kicker{font:600 10pt "Noto Sans KR",sans-serif; letter-spacing:.35em; color:#666}
+.title-page h1{font:700 27pt/1.35 "Noto Sans KR",sans-serif; margin:14px 0 6px; letter-spacing:-.5px}
+.title-page .sub{font-size:13pt; color:#333}
+.title-page .rule{width:60mm; height:0; border-top:1.2pt solid #111; margin:22px auto}
+.title-page .meta{font-size:10pt; color:#444; line-height:1.9}
+.abstract{margin:34px auto 0; width:140mm; text-align:left; font-size:9.6pt; line-height:1.75}
+.abs-h{font-weight:700; text-align:center; font-size:10pt; letter-spacing:.3em; margin-bottom:6px}
+.kw{font-size:9pt; margin-top:10px; color:#333}
+.legend-note{margin-top:16px; font-size:8.8pt; color:#555; text-align:center}
+
+/* toc */
+.toc-page{break-after:page}
+.toc h2{border:0; text-align:center; letter-spacing:.5em; font-size:15pt; margin:6mm 0 9mm}
+.toc ol{list-style:none; margin:0; padding:0}
+.toc li{display:flex; align-items:baseline; font-size:10pt; line-height:2.0}
+.toc li .t{flex:none; max-width:85%}
+.toc li .dots{flex:1; border-bottom:1px dotted #999; margin:0 6px; transform:translateY(-3px)}
+.toc li .pg{flex:none; font-variant-numeric:tabular-nums; min-width:16px; text-align:right}
+.toc li.l1{font-weight:700; margin-top:5px}
+.toc li.l2{padding-left:22px; font-size:9.4pt; color:#333; line-height:1.85}
+.toc .n{display:inline-block; min-width:30px}
+.toc li.l2 .n{min-width:34px}
+
+/* headings */
+h2{font-size:14.5pt; font-weight:700; margin:12mm 0 4mm; padding-bottom:2mm; border-bottom:1pt solid #111; break-after:avoid}
+h2 .n{margin-right:10px}
+h3{font-size:11.3pt; font-weight:700; margin:7mm 0 2.5mm; break-after:avoid}
+h3 .n{margin-right:8px}
+h4{font-size:10.2pt; font-weight:700; margin:4mm 0 1.5mm; break-after:avoid}
+section.ch:first-of-type h2{margin-top:0}
+
+/* figures, tables, code */
+figure{margin:5mm 0; break-inside:avoid}
+figcaption,.cap{font-size:8.8pt; color:#222; text-align:center; margin-top:2.5mm}
+figcaption b,.cap b{font-size:8.8pt}
+table.t{width:100%; border-collapse:collapse; font-size:9.1pt; line-height:1.55; margin:0; break-inside:avoid}
+table.t caption{caption-side:top; font-size:8.8pt; margin-bottom:2mm; text-align:center}
+table.t th{font-size:8.8pt; font-weight:700; text-align:left; padding:4px 7px; border-top:1.2pt solid #111; border-bottom:.6pt solid #111}
+table.t td{padding:3.5px 7px; vertical-align:top; border-bottom:.3pt solid #ddd}
+table.t tr:last-child td{border-bottom:1.2pt solid #111}
+table.t td:first-child{white-space:nowrap}
+.tw{margin:5mm 0; break-inside:avoid}
+.listing{margin:4.5mm 0; break-inside:avoid}
+.listing .cap{text-align:left; margin:0 0 1.5mm}
+.code{text-align:left; border-top:.8pt solid #111; border-bottom:.8pt solid #111; background:#fafafa; padding:2.2mm 0}
+.code pre{margin:0; font-size:8.1pt; line-height:1.6; white-space:pre-wrap}
+.code .ln{display:flex}
+.code .no{flex:none; width:24px; text-align:right; padding-right:9px; color:#999}
+.code .tx{white-space:pre-wrap; flex:1}
+.code .cm{color:#777; font-style:italic}
+.code .tag{font-weight:700}
+.listing.long{break-inside:auto}
+.two{display:grid; grid-template-columns:1fr 1fr; gap:5mm; break-inside:avoid}
+.two .listing{margin:0}
+.two .code pre{font-size:7.1pt}
+table.t th{white-space:nowrap}
+table.t td.nw{white-space:nowrap}
+
+.note{margin:4mm 0; padding:2.5mm 0 2.5mm 4.5mm; border-left:2pt solid #111; font-size:9.6pt; break-inside:avoid}
+.note.soft{border-left-color:#aaa}
+.note b:first-child{margin-right:6px}
+ul.l,ol.l{margin:1mm 0 3mm; padding-left:6mm}
+ul.l li,ol.l li{margin:.6mm 0}
+dl.d{display:grid; grid-template-columns:auto 1fr; gap:1mm 5mm; margin:2mm 0 3mm; font-size:9.6pt}
+dl.d dt{font-family:"Noto Sans KR",sans-serif; font-weight:700; font-size:9pt}
+dl.d dd{margin:0}
+
+/* diagram primitives (monochrome) */
+.dg{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px; font-family:"Noto Sans KR",sans-serif}
+.bx{border:.9pt solid #111; padding:5px 9px; font-size:8.6pt; text-align:center; background:#fff; line-height:1.4}
+.bx small{display:block; color:#555; font-size:7.6pt}
+.bx.mono{font-family:"JetBrains Mono","Noto Sans KR",monospace; font-size:8.2pt}
+.bx.dash{border-style:dashed}
+.bx.fill{background:#eee}
+.ar{font-size:10pt; color:#333}
+.anat{display:flex; justify-content:center; gap:3px; font:8.6pt "JetBrains Mono","Noto Sans KR",monospace}
+.anat .p{display:flex; flex-direction:column; align-items:center}
+.anat .p span{border:.9pt solid #111; padding:4px 6px; white-space:pre}
+.anat .p small{font:7.6pt "Noto Sans KR",sans-serif; color:#444; margin-top:3px}
+.nest{border:.9pt solid #111; padding:5px 8px 6px; margin-top:4px; font:8.2pt "JetBrains Mono","Noto Sans KR",monospace}
+.nest.d1{border-style:dashed} .nest.d3{border-style:dotted}
+.scope{border:.9pt solid #111; padding:8px 10px; font-family:"Noto Sans KR",sans-serif; font-size:8.8pt}
+.scope .row{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:6px}
+.scope .v{border:.9pt solid #111; padding:6px 8px; background:#fff}
+.scope .tag{display:inline-block; border:.6pt dashed #333; padding:0 5px; margin:3px 3px 0 0; font-size:8pt}
+.tree{font:8.3pt/1.55 "JetBrains Mono","Noto Sans KR",monospace; white-space:pre; border-top:.8pt solid #111; border-bottom:.8pt solid #111; padding:2.5mm 3mm; background:#fafafa}
+
+/* wireframes */
+.wf{border:.9pt solid #111; width:100%; font-family:"Noto Sans KR",sans-serif; font-size:8.4pt; background:#fff}
+.wf .hd{border-bottom:.9pt solid #111; padding:4px 8px; font-weight:700}
+.wf .bd{padding:8px}
+.wf .btn{display:inline-block; border:.9pt solid #111; border-radius:3px; padding:2px 10px; margin:2px 0}
+.wf .inp{border:.9pt solid #777; width:55%; height:16px; margin:3px 0; font-size:7.5pt; color:#888; padding:0 4px; line-height:15px}
+.wf .tbl{border:.9pt solid #111; margin-top:6px}
+.wf .tbl div{border-bottom:.5pt solid #999; padding:2px 6px; display:flex; gap:8px}
+.wf .tbl div:last-child{border-bottom:0}
+.wf .cb{display:inline-block; width:8px; height:8px; border:.7pt solid #333; margin-top:3px}
+.wf .vl{border:.7pt dashed #555; padding:5px; display:flex; flex-direction:column; align-items:flex-start; position:relative}
+</style>
+</head>
+<body>
+<div class="title-page">
+  <div class="kicker">STUDY NOTE · DAY 1</div>
+  <h1>강의 정리</h1>
+  <div class="sub">과정명 이름</div>
+  <div class="rule"></div>
+  <div class="meta">YYYY년 MM월 DD일<br>과목 · 주제</div>
+  <div class="abstract">
+    <div class="abs-h">오늘의 핵심</div>
+    <ol style="margin:0; padding-left:5mm"><li>핵심 한 줄.</li><li>핵심 한 줄.</li></ol>
+    <div class="kw"><b>주제어</b> 키워드1, 키워드2</div>
+  </div>
+  <div class="legend-note">본문의 † 표시는 원본 수업 노트에 없던 보충 설명이다.</div>
+</div>
+
+<div class="toc-page toc">
+  <h2>목차</h2>
+  <ol id="tocList"></ol>
+</div>
+
+<section class="ch">
+<h2 id="s1"><span class="n">1.</span>예시 절</h2>
+<h3 id="s1-1"><span class="n">1.1</span>그림 · 표 · 코드</h3>
+<p><b>한 줄 정의</b> 문단 예시.</p>
+<figure>
+  <div class="dg"><div class="bx"><b>A</b><small>설명</small></div><span class="ar">→</span><div class="bx"><b>B</b><small>설명</small></div></div>
+  <figcaption><b>그림 1.</b> 그림 설명</figcaption>
+</figure>
+<div class="tw"><table class="t">
+  <caption><b>표 1.</b> 표 설명</caption>
+  <tr><th>항목</th><th>설명</th></tr>
+  <tr><td class="nw">a</td><td>첫 번째</td></tr>
+</table></div>
+<div class="listing"><div class="cap"><b>코드 1.</b> 코드 설명</div>
+<script type="text/x-code" data-lang="js">
+let total = 0;   // 주석
+</script></div>
+<div class="note"><b>주의</b> 메모 상자.</div>
+</section>
+
+<script>
+(function(){
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function hlXml(line){
+    return esc(line)
+      .replace(/(&lt;!--.*?--&gt;)/g,'<span class="cm">$1</span>')
+      .replace(/(&lt;\/?)([\w.:-]+)/g,function(m,a,b){return a+'<span class="tag">'+b+'</span>';});
+  }
+  function hlJs(line){
+    var i=line.indexOf('//'); if(i<0) return esc(line);
+    return esc(line.slice(0,i))+'<span class="cm">'+esc(line.slice(i))+'</span>';
+  }
+  document.querySelectorAll('script[type="text/x-code"]').forEach(function(sc){
+    var js=sc.dataset.lang==='js';
+    var lines=sc.textContent.replace(/^\s*\n/,'').replace(/\s+$/,'').split('\n');
+    var ind=Math.min.apply(null,lines.filter(function(l){return l.trim();}).map(function(l){return l.match(/^ */)[0].length;}));
+    var d=document.createElement('div'); d.className='code';
+    d.innerHTML='<pre>'+lines.map(function(l,k){l=l.slice(ind); return '<span class="ln"><span class="no">'+(k+1)+'</span><span class="tx">'+((js?hlJs(l):hlXml(l))||' ')+'</span></span>';}).join('')+'</pre>';
+    sc.replaceWith(d);
+  });
+  /* TOC */
+  var PG = window.__PAGES || {};
+  var ol=document.getElementById('tocList');
+  document.querySelectorAll('section.ch h2, section.ch h3').forEach(function(h){
+    var li=document.createElement('li'); li.className=h.tagName==='H2'?'l1':'l2';
+    var n=h.querySelector('.n').textContent, t=h.textContent.slice(n.length);
+    li.innerHTML='<span class="t"><span class="n">'+n+'</span>'+t+'</span><span class="dots"></span><span class="pg">'+(PG[h.id]||'')+'</span>';
+    ol.appendChild(li);
+  });
+})();
+</script>
+</body>
+</html>

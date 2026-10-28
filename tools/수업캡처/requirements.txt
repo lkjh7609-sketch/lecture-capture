@@ -1,0 +1,6 @@
+pillow
+pystray
+sounddevice
+faster-whisper
+winsdk; sys_platform == "win32"
+pyinstaller

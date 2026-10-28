@@ -1,0 +1,30 @@
+# 수업캡처 Windows 설치 파일 자동 빌드
+# GitHub → Actions → "수업캡처 설치 파일" → 최신 실행 → Artifacts의 LectureCapture-Setup 다운로드
+name: 수업캡처 설치 파일
+on:
+  workflow_dispatch:
+  push:
+    paths: ["tools/수업캡처/**", ".github/workflows/lecture-capture.yml"]
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: cmd
+        working-directory: tools/수업캡처
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: exe 빌드
+        run: call build_exe.bat nopause
+      - name: Inno Setup 준비
+        run: if not exist "%ProgramFiles(x86)%\Inno Setup 6\ISCC.exe" choco install innosetup -y --no-progress
+      - name: 설치 파일 만들기
+        run: '"%ProgramFiles(x86)%\Inno Setup 6\ISCC.exe" installer.iss'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: LectureCapture-Setup
+          path: tools/수업캡처/Output/*.exe
+          retention-days: 30

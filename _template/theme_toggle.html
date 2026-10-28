@@ -1,0 +1,48 @@
+<!-- theme-toggle:start -->
+<script>
+(function () {
+  var t = null;
+  try { t = localStorage.getItem("sap-theme"); } catch (e) {}
+  document.documentElement.setAttribute("data-theme", t === "dark" ? "dark" : "light");
+})();
+</script>
+<style>
+:root { --tt-bg: #ffffff; --tt-fg: #1d2733; --tt-line: #d6dce4; --tt-shadow: 0 2px 10px rgba(20, 30, 50, .12); }
+:root[data-theme="dark"] { --tt-bg: #1f2732; --tt-fg: #e6ebf1; --tt-line: #34404f; --tt-shadow: 0 2px 10px rgba(0, 0, 0, .4); }
+.theme-toggle {
+  position: absolute; z-index: 1000;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  right: max(16px, calc(env(safe-area-inset-right, 0px) + 16px));
+  display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px;
+  border: 1px solid var(--tt-line); border-radius: 999px; background: var(--tt-bg); color: var(--tt-fg);
+  box-shadow: var(--tt-shadow); cursor: pointer;
+  font: 600 13px/1 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+.theme-toggle:hover { filter: brightness(.97); }
+.theme-toggle:focus-visible { outline: 2px solid #0a6ed1; outline-offset: 2px; }
+.theme-toggle svg { width: 16px; height: 16px; flex: none; }
+@media print { .theme-toggle { display: none !important; } }
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var root = document.documentElement;
+  var SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+  var MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+  var b = document.createElement("button");
+  b.type = "button"; b.className = "theme-toggle"; b.id = "themeToggle";
+  function paint() {
+    var dark = root.getAttribute("data-theme") === "dark";
+    b.innerHTML = (dark ? SUN : MOON) + "<span>" + (dark ? "라이트 모드" : "다크 모드") + "</span>";
+    b.setAttribute("aria-label", dark ? "라이트 모드로 전환" : "다크 모드로 전환");
+  }
+  b.addEventListener("click", function () {
+    var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("sap-theme", next); } catch (e) {}
+    paint();
+  });
+  paint();
+  document.body.appendChild(b);
+});
+</script>
+<!-- theme-toggle:end -->
