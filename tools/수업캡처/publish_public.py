@@ -178,8 +178,8 @@ jobs:
           $shots = Join-Path $env:RUNNER_TEMP "shots"
           $env:LC_ROOT = Join-Path $env:RUNNER_TEMP "lcroot"
           New-Item -ItemType Directory -Force $env:LC_ROOT | Out-Null
-          $p = Start-Process dist\LectureCapture\LectureCapture.exe -ArgumentList "--selftest", $shots -PassThru -Wait
-          if (Test-Path "$shots\error.txt") { Get-Content "$shots\error.txt"; exit 1 }
+          $p = Start-Process dist\\LectureCapture\\LectureCapture.exe -ArgumentList "--selftest", $shots -PassThru -Wait
+          if (Test-Path "$shots\\error.txt") { Get-Content "$shots\\error.txt"; exit 1 }
           if ($p.ExitCode -ne 0) { "exit code $($p.ExitCode)"; exit 1 }
           Get-ChildItem $shots
       - uses: actions/upload-artifact@v4

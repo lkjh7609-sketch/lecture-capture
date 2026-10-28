@@ -15,4 +15,5 @@ def save_ico(path):
     return path
 
 if __name__ == "__main__":
-    print("ok", save_ico(Path(__file__).with_name("icon.ico")))
+    save_ico(Path(__file__).with_name("icon.ico"))
+    print("ok icon.ico")
