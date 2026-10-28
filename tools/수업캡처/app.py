@@ -131,8 +131,13 @@ class App:
         self.b_rec.grid(row=0, column=0, sticky="ew", padx=(0, 6))
         self.b_make = ui.button(btns, "정리 만들기", self.make, height=54, size=16)
         self.b_make.grid(row=0, column=1, sticky="ew", padx=(6, 0))
-        ui.label(f, f"녹화 중 단축키   {self.cfg['hotkey_capture'].upper()}  중요 화면 캡처   ·   "
-                    f"{self.cfg['hotkey_memo'].upper()}  메모", 12, muted=True).pack(pady=(6, 10))
+        keys = ctk.CTkFrame(f, fg_color="transparent")
+        keys.pack(pady=(8, 12))
+        ui.label(keys, "녹화 중 단축키", 12, muted=True).pack(side="left", padx=(0, 10))
+        for k, what in ((self.cfg["hotkey_capture"], "중요 화면 캡처"), (self.cfg["hotkey_memo"], "메모")):
+            ctk.CTkLabel(keys, text=" + ".join(x.capitalize() for x in k.split("+")), font=ui.font(12, True),
+                         text_color=ui.TEXT, fg_color=ui.CARD, corner_radius=6, height=24, padx=8).pack(side="left")
+            ui.label(keys, what, 12, muted=True).pack(side="left", padx=(6, 14))
 
         lg = ui.card(f)
         lg.pack(fill="both", expand=True)
@@ -262,8 +267,8 @@ class App:
         self.dot.configure(text_color=dot)
         self.status.configure(text=text)
         busy = [f"{k} {v}" for k, v in pend.items() if v]
-        self.sub.configure(text=date + ("  ·  처리 대기  " + " · ".join(busy) if busy else
-                                        "  ·  밀린 작업 없음" if pend else ""))
+        self.sub.configure(text="처리 대기  " + " · ".join(busy) if busy else "밀린 작업 없음" if pend else
+                           "녹화를 시작하면 디스코드 화면을 자동으로 캡처해요")
         self.tile["shots"].configure(text=str(counts["shots"]))
         self.tile["star"].configure(text=str(counts["star"]))
         self.tile["memos"].configure(text=str(counts["memos"]))
