@@ -7,6 +7,6 @@
 - 템플릿: [_template/](_template/) (`html_reference.html`, `paper_reference.html`은 수업 내용을 뺀 디자인 견본)
 
 ## 설치 파일 받기
-Actions → "수업캡처 설치 파일" → 최신 실행 → Artifacts → `LectureCapture-Setup`.
+[LectureCapture-Setup.exe 다운로드](https://github.com/lkjh7609-sketch/lecture-capture/releases/latest/download/LectureCapture-Setup.exe) (로그인 불필요, 항상 최신판)
 
 이 저장소에는 프로그램 코드와 템플릿만 있다. 강의 자료는 개인 저장소에 따로 둔다.

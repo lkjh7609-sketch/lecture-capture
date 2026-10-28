@@ -148,12 +148,15 @@ def main():
     print("ok", OUT)
 
 WORKFLOW = '''# 수업캡처 Windows 설치 파일 자동 빌드
-# GitHub → Actions → "수업캡처 설치 파일" → 최신 실행 → Artifacts의 LectureCapture-Setup 다운로드
+# main에 push하면 빌드 후 Releases에 올림(로그인 없이 받기)
+# 고정 링크: https://github.com/lkjh7609-sketch/lecture-capture/releases/latest/download/LectureCapture-Setup.exe
 name: 수업캡처 설치 파일
 on:
   workflow_dispatch:
   push:
     paths: ["tools/수업캡처/**", ".github/workflows/lecture-capture.yml"]
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: windows-latest
@@ -177,6 +180,18 @@ jobs:
           name: LectureCapture-Setup
           path: tools/수업캡처/Output/*.exe
           retention-days: 30
+      - name: Releases에 올리기
+        if: github.ref == 'refs/heads/main'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          f=$(ls Output/LectureCapture-Setup-*.exe | head -1)
+          ver=$(basename "$f" .exe); ver=${ver#LectureCapture-Setup-}
+          cp "$f" Output/LectureCapture-Setup.exe
+          gh release view "v$ver" >/dev/null 2>&1 || gh release create "v$ver" --title "수업캡처 $ver" --notes "LectureCapture-Setup.exe 를 받아 실행. Windows의 PC 보호 창이 뜨면 추가 정보 → 실행."
+          gh release upload "v$ver" "$f" Output/LectureCapture-Setup.exe --clobber
 '''
 
 PUBLIC_README = '''# 수업캡처 (Lecture Capture)
@@ -188,7 +203,7 @@ PUBLIC_README = '''# 수업캡처 (Lecture Capture)
 - 템플릿: [_template/](_template/) (`html_reference.html`, `paper_reference.html`은 수업 내용을 뺀 디자인 견본)
 
 ## 설치 파일 받기
-Actions → "수업캡처 설치 파일" → 최신 실행 → Artifacts → `LectureCapture-Setup`.
+[LectureCapture-Setup.exe 다운로드](https://github.com/lkjh7609-sketch/lecture-capture/releases/latest/download/LectureCapture-Setup.exe) (로그인 불필요, 항상 최신판)
 
 이 저장소에는 프로그램 코드와 템플릿만 있다. 강의 자료는 개인 저장소에 따로 둔다.
 '''

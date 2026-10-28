@@ -5,8 +5,8 @@
 ## 설치 (Windows 노트북, 한 번만)
 노트북에는 아무것도 미리 깔 필요가 없다. Python도 필요 없다(설치 파일 안에 다 들어 있음).
 
-1. GitHub 공개 저장소 [lkjh7609-sketch/lecture-capture](https://github.com/lkjh7609-sketch/lecture-capture) → **Actions** → "수업캡처 설치 파일" → 맨 위(최신) 실행 → 아래 **Artifacts**의 `LectureCapture-Setup` 다운로드 → 압축 풀기.
-2. `LectureCapture-Setup-1.0.0.exe` 더블클릭. "Windows의 PC 보호" 창이 뜨면 **추가 정보 → 실행**(서명 안 된 개인 프로그램이라 뜨는 경고).
+1. [LectureCapture-Setup.exe 다운로드](https://github.com/lkjh7609-sketch/lecture-capture/releases/latest/download/LectureCapture-Setup.exe) (로그인 불필요, 항상 최신판. 공개 저장소 [lecture-capture](https://github.com/lkjh7609-sketch/lecture-capture)의 Releases)
+2. `LectureCapture-Setup.exe` 더블클릭. "Windows의 PC 보호" 창이 뜨면 **추가 정보 → 실행**(서명 안 된 개인 프로그램이라 뜨는 경고).
 3. 설치 화면에서 **"Claude Code 설치"** 체크(기본 켜짐). Git for Windows와 Claude Code를 자동으로 설치한다. 인터넷 필요.
 4. 설치가 끝나면 수업캡처가 실행된다.
    - **작업 폴더**: "예"를 누르면 `문서\수업정리` 폴더를 새로 만든다(템플릿 자동 복사). 이미 SAPCODE1 폴더가 있으면 "아니오"를 누르고 고른다. 한 번만 하면 기억한다.
@@ -17,7 +17,7 @@
 PDF는 설치 파일에 들어 있는 `lctool.exe`(Python 대용)와 Windows 기본 브라우저 Edge로 만든다.
 
 ### 설치 파일 다시 만들기(개발용)
-`tools/수업캡처/` 아래를 고친 뒤 `python tools/수업캡처/publish_public.py <lecture-capture 폴더>`로 공개 저장소에 반영하고 push하면 Actions가 새 설치 파일을 만든다(SAPCODE1은 비공개라 결제 문제로 Actions가 막혀 있음). Windows PC에서 직접 만들려면 Python 3.12와 Inno Setup(`winget install JRSoftware.InnoSetup`)을 깔고 `build_installer.bat`.
+`tools/수업캡처/` 아래를 고친 뒤 `python tools/수업캡처/publish_public.py <lecture-capture 폴더>`로 공개 저장소에 반영하고 push하면 Actions가 새 설치 파일을 만들어 Releases에 올린다(버전은 `installer.iss`의 AppVersion, 같은 버전이면 덮어씀)(SAPCODE1은 비공개라 결제 문제로 Actions가 막혀 있음). Windows PC에서 직접 만들려면 Python 3.12와 Inno Setup(`winget install JRSoftware.InnoSetup`)을 깔고 `build_installer.bat`.
 
 ## 수업 날
 0. 녹화를 시작할 때 디스코드가 일반 모드면 "가림방지 모드로 다시 실행할까요?"라고 물어본다. 예를 누르고 방송에 다시 들어간다(하루 한 번).
